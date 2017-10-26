@@ -249,7 +249,7 @@ ArraySort 20000000 data   26.447077ms
 
 func TestBigData(t *testing.T) {
 	//百万万数据排序
-	slen := 200000
+	slen := 1000000
 
 	a := randBigArray(slen)
 	start := time.Now()
@@ -273,6 +273,14 @@ func TestBigData(t *testing.T) {
 	fmt.Printf("mergeSort   %d data   %v\n", slen, time.Since(start))
 	if !check_sort(a) {
 		t.Fatalf("mergeSort error\n")
+	}
+
+	a = randBigArray(slen)
+	start = time.Now()
+	HeapSort(a, len(a))
+	fmt.Printf("HeapSort   %d data   %v\n", slen, time.Since(start))
+	if !check_sort(a) {
+		t.Fatalf("HeapSort error\n")
 	}
 
 	a = randBigArray(slen)
