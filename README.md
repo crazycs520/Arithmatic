@@ -25,7 +25,14 @@
 
 5.  最长递增子序列
 
+6.  ​
+
+
+
+
+
 # 动态规划 DP
+
 1. 有面值为1元、3元和5元的硬币若干枚，如何用最少的硬币凑够11元？--leastCoin，参考：http://www.hawstein.com/posts/dp-novice-to-advanced.html
 
 
@@ -34,3 +41,4 @@
 4. 最长公共子串
 
  # 数据结构与算法--清华大学公开课学习
+* 二叉树--binaryTree
