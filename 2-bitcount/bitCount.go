@@ -54,8 +54,8 @@ func BitCount3(x uint64) int {
 }
 
 /*
-//BitCount4   MIT HAKMEM   ??
-//error ??
+//BitCount4   MIT HAKMEM   只适用于32bit 的数据
+//
 func BitCount4(n uint64) int {
 	tmp := n - ((n >> 1) & 033333333333) - ((n >> 2) & 011111111111)
 	tmp = (tmp + (tmp >> 3)) & 030707070707
