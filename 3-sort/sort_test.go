@@ -3,11 +3,12 @@ package sort
 import (
 	"fmt"
 	"math/rand"
+	"sort"
 	"testing"
 	"time"
 )
 
-const arryLen = 500
+const arryLen = 5000
 
 func randArray(l int) []int {
 	a := make([]int, l)
@@ -173,6 +174,14 @@ func BenchmarkMergeSort(b *testing.B) {
 	}
 }
 
+//go 自带内部排序
+func BenchmarkSortintn(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		a := randArray(arryLen)
+		sort.Ints(a)
+	}
+}
+
 func randBigArray(l int) []int {
 	a := make([]int, l)
 	for i := 0; i < l; i++ {
@@ -187,7 +196,7 @@ func randBigArray(l int) []int {
 	return a
 }
 
-//桶排序
+//桶排序  , 桶内结构用单链表性能很差
 func TestBucketSort(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		a := randBigArray(arryLen)
@@ -206,6 +215,7 @@ func BenchmarkBucketSort(b *testing.B) {
 	}
 }
 
+////桶内结构用数组，并用二分查找找到新插入元素的位置
 func TestBucketSort2(t *testing.T) {
 	for i := 0; i < 100; i++ {
 
@@ -225,6 +235,7 @@ func BenchmarkBucketSort2(b *testing.B) {
 	}
 }
 
+//数组排序
 func TestArraySort(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		a := randBigArray(arryLen)
