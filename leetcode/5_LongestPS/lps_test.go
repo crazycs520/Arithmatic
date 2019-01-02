@@ -1,31 +1,38 @@
 package lps
 
 import (
+	"fmt"
+	"os"
 	"testing"
 )
 
-type cases struct {
-	in, out string
+var testCase = []struct {
+	s string
+	r string
+}{
+	{"babac", "bab"},
+	{"cbbd", "bb"},
+	{"a", "a"},
+	{"aa", "aa"},
+	{"", ""},
 }
 
-var cases1 = []cases{
-	{"babad", "aba"},
-	{"asdfggfdsa", "asdfggfdsa"},
-	{"qweasdfggfdsauioh", "asdfggfdsa"},
-}
-
-func TestLps(t *testing.T) {
-	for _, c := range cases1 {
-		got := Lps(c.in)
-		if got != c.out {
-			t.Errorf("Lps(%s)=%s,but want %s\n", c.in, got, c.out)
-		} else {
-			t.Logf("Lps(%s)=%s, want %s\n", c.in, got, c.out)
+func TestLongestPalindrome(t *testing.T) {
+	for _, c := range testCase {
+		re := longestPalindrome(c.s)
+		if re != c.r {
+			fmt.Printf("%v, expect %v, get: %v\n", c.s, c.r, re)
+			os.Exit(1)
 		}
 	}
 }
 
-func TestReverse(t *testing.T) {
-	str := "abcdefg"
-	t.Logf("reverse(%s)=%s   str=%s", str, Reverse(str), str)
+func TestLongestPalindrome2(t *testing.T) {
+	for _, c := range testCase {
+		re := longestPalindrome2(c.s)
+		if re != c.r {
+			fmt.Printf("%v, expect %v, get: %v\n", c.s, c.r, re)
+			os.Exit(1)
+		}
+	}
 }
