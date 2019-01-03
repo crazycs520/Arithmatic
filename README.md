@@ -25,7 +25,6 @@
 
 5.  最长递增子序列
 
-6.  ​
 
 
 
@@ -44,6 +43,9 @@
 
  # 数据结构与算法--清华大学公开课学习(dsa_thu)
 * 二叉树--binaryTree
+
+# leetcode
+[README](./leetcode/README.md)
 
 # 剑指Offer(offer)
 3. 二维数组查找

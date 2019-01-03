@@ -1,34 +1,66 @@
 package lps
 
-func Lps(str string) string {
-	str1 := Reverse(str)
-	end := 0
-	l, ll := 0, 0
-	i := 0
-	for i = 0; i < len(str); i++ {
-		if str[i] == str1[i] {
-			l++
-			end = i
-		} else {
-			if l > ll {
-				ll = l
-				end = i
+func longestPalindrome(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	i1, i2 := 0, len(s)
+	start, end := 0, 1
+	for i1 < i2 {
+		if isPalindrome(s[i1:i2]) {
+			if (i2 - i1) > (end - start) {
+				start, end = i1, i2
 			}
-			l = 0
-
+		}
+		i2--
+		if i2 == i1 {
+			i1++
+			i2 = len(s)
+			if (i2 - i1) < (end - start) {
+				break
+			}
 		}
 	}
-	if l > ll {
-		ll = l
-		end = i
-	}
-	return str[end-ll : end]
+	return s[start:end]
 }
 
-func Reverse(str string) string {
-	s := []byte{}
-	for i := len(str) - 1; i >= 0; i-- {
-		s = append(s, str[i])
+func isPalindrome(s string) bool {
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		if s[i] != s[j] {
+			return false
+		}
 	}
-	return string(s)
+	return true
+}
+
+func longestPalindrome2(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	start,end := 0,0
+	for i:=0;i<len(s);i++ {
+		l1 :=  expandAroundCenter(s,i,i)
+		l2 := expandAroundCenter(s,i,i+1)
+		ll := max(l1,l2)
+		if ll > (end - start){
+			start = i - (ll -1)/2
+			end  = i + ll /2
+		}
+	}
+	return s[start:end+1]
+}
+
+func expandAroundCenter(s string, l,r int) int {
+	for  ;l >= 0 && r < len(s) && s[l] == s[r]; {
+		l--
+		r++
+	}
+	return r - l - 1;
+}
+
+func max(a,b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
