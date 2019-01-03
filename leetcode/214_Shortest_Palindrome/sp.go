@@ -1,5 +1,7 @@
 package sp
 
+// 76ms
+// 从中间开始，找能与第 0 个 char 构成最长的回文字符串
 func shortestPalindrome(s string) string {
 	if len(s) < 2 {
 		return s
@@ -44,6 +46,29 @@ func finish_palindrom(s string, mid int, isEven bool) string {
 	lastIdx := ll - 1
 	for i := 0; i < remain; i++ {
 		bs[i] = bs[lastIdx-i]
+	}
+	return string(bs)
+}
+
+//
+func shortestPalindrome2(s string) string {
+	i := 0
+	for j := len(s) - 1; j >= 0; j-- {
+		if s[i] == s[j] {
+			i++
+		}
+	}
+	if i == len(s) {
+		return s
+	}
+	reverse_str := reverseString(s, i, len(s))
+	return reverse_str + shortestPalindrome2(s[0:i]) + s[i:]
+}
+
+func reverseString(s string, l, r int) string {
+	bs := make([]byte, 0, r-l)
+	for i := r - 1; i >= l; i-- {
+		bs = append(bs, s[i])
 	}
 	return string(bs)
 }
