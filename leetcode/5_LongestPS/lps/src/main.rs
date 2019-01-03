@@ -23,7 +23,7 @@ fn longest_palindrome(s: &str) -> &str {
             end = i + ll / 2;
         }
     }
-    return &s[start..end + 1];
+    return &s[start..=end];
 }
 fn expand_around_center(s: &[u8], mut l: usize, mut r: usize) -> usize {
     while l > 0 && r < s.len() && s[l] == s[r] {
@@ -36,6 +36,47 @@ fn expand_around_center(s: &[u8], mut l: usize, mut r: usize) -> usize {
     return r - l - 1;
 }
 
+fn longest_palindrome2(s: &str) -> &str {
+    if s.len() == 0 {
+        return "";
+    }
+    let mut i1 = 0;
+    let mut i2 = s.len() - 1;
+    let mut start = 0;
+    let mut end = 0;
+    let bs = s.as_bytes();
+    while i1 < i2 {
+        if is_palindrome(&bs[i1..=i2]) {
+            if (i2 - i1) > (end - start) {
+                start = i1;
+                end = i2;
+            }
+        }
+        i2 -= 1;
+        if i2 == i1 {
+            i1 += 1;
+            i2 = s.len() - 1;
+            if (i2 - i1) < (end - start) {
+                break;
+            }
+        }
+    }
+    return &s[start..=end];
+}
+
+fn is_palindrome(s: &[u8]) -> bool {
+    let mut i = 0;
+    let mut j = s.len() - 1;
+    while i < j {
+        if s[i] != s[j] {
+            return false;
+        }
+        i += 1;
+        j -= 1;
+    }
+    return true;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -45,6 +86,14 @@ mod tests {
         let cases = Case::test_cases();
         for case in cases {
             assert_eq!(case.o, longest_palindrome(case.s));
+        }
+    }
+
+    #[test]
+    fn test_longest_palindrome2() {
+        let cases = Case::test_cases();
+        for case in cases {
+            assert_eq!(case.o, longest_palindrome2(case.s));
         }
     }
 }
