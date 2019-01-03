@@ -1,6 +1,9 @@
 fn main() {
-    let s = longest_palindrome("abaaba");
-    println!("{}", s);
+    let cases = Case::test_cases();
+    for case in cases {
+        let re = longest_palindrome(case.s);
+        println!("\nin: {}\t\tout: {}\t\tok: {}", case.s, re, re == case.o);
+    }
 }
 
 fn longest_palindrome(s: &str) -> &str {
@@ -39,7 +42,7 @@ mod tests {
 
     #[test]
     fn test_longest_palindrome() {
-        let cases = test_cases();
+        let cases = Case::test_cases();
         for case in cases {
             assert_eq!(case.o, longest_palindrome(case.s));
         }
@@ -65,15 +68,14 @@ impl<'a> Case<'a> {
         }
         return cases;
     }
-}
-
-fn test_cases() -> Vec<Case> {
-    Case::new_vec(vec![
-        [],
-        ["a", "a"],
-        ["aa", "aa"],
-        ["abaaba", "abaaba"],
-        ["ababa", "ababa"],
-        ["abbd", "bb"],
-    ])
+    fn test_cases<'b>() -> Vec<Case<'b>> {
+        Case::new_vec(vec![
+            ["", ""],
+            ["a", "a"],
+            ["aa", "aa"],
+            ["abaaba", "abaaba"],
+            ["ababa", "ababa"],
+            ["abbd", "bb"],
+        ])
+    }
 }
